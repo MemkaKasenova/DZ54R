@@ -77,16 +77,4 @@ class CustomTableViewCell: UITableViewCell {
         productImageView.kf.setImage(with: URL(string: item.thumbnail ))
     }
 }
-//    func tableView(_ tableView: UITableView, didSelectRowAt
-//                     indexPath: IndexPath
-//        ) {
-//            let model = products[indexPath.item]
-//            UserdefaultStorage.shared.save(model.title,forKey: .productName)
-//
-//            KeyChainManager.shared.save(
-//                model,
-//                service: Keychain.service,
-//                account: Keychain.account
-//            )
-//        }
 

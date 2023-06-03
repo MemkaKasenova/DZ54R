@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class ViewController: UIViewController {
-
+    
     private lazy var tableView: UITableView = {
         let view = UITableView()
         view.rowHeight = 300
@@ -36,9 +36,9 @@ class ViewController: UIViewController {
     }()
     
     private func fetchProducts() {
-    Task {
-        await viewModel.fetchProducts()
-        tableView.reloadData()
+        Task {
+            await viewModel.fetchProducts()
+            tableView.reloadData()
         }
     }
     
@@ -74,14 +74,14 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView,
-        numberOfRowsInSection section: Int
+                   numberOfRowsInSection section: Int
     ) -> Int {
         viewModel.products.count
     }
     
     func tableView(
         _ tableView: UITableView,
-         cellForRowAt indexPath: IndexPath
+        cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(
             withIdentifier: CustomTableViewCell.reusedId,
@@ -90,8 +90,19 @@ extension ViewController: UITableViewDataSource {
         let model = viewModel.products[indexPath.row]
         cell.diplay(item: model)
         return cell
-           }
-       }
-
-
-
+    }
+    
+    func tableView(
+        _ tableView: UITableView, didSelectRowAt
+        indexPath: IndexPath
+    ) {
+        let model = viewModel.products[indexPath.row]
+        UserdefaultStorage.shared.save(model.title,forKey: .productName)
+        
+        KeyChainManager.shared.save(
+            model,
+            service: Keychain.service,
+            account: Keychain.account
+        )
+    }
+}
