@@ -6,3 +6,14 @@
 //
 
 import Foundation
+
+enum Constants {
+    enum Sizes {
+        static let size46 = 46
+    }
+}
+
+enum Keychain {
+    static let service = "SomeService"
+    static let account = "SomeAccount"
+}
